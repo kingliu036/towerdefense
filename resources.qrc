@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>timg[7].png</file>
+        <file>tower1.png</file>
+    </qresource>
+</RCC>
