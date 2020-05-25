@@ -21,7 +21,7 @@ Map::Map(QWidget * parent):QWidget(parent)
 void Map::loadImages()
 {
     map.load(":/timg[7].png");
-    towerchoose.load(":/tower1.png");
+    towerchoose.load(":/choosetower.png");
 }
 
 void Map::initGame()
@@ -31,6 +31,7 @@ void Map::initGame()
     loc[2].set(1500,1400);
     loc[3].set(1820,1400);
     loc[4].set(1800,650);
+    timerId = startTimer(10);
 }
 
 void Map::paintEvent(QPaintEvent *e)
@@ -53,7 +54,7 @@ void Map::doDrawing()
         }
         if(clicktower==true)
         {
-            QRectF towerchoose1(loc[0].getX(),loc[0].getY()-300,300,300);       //没有repaint（），所以显示不出来
+            QRectF towerchoose1(loc[towernum].getX()-150,loc[towernum].getY()-300,600,300);       //没有repaint（），所以显示不出来
             qp.drawImage(towerchoose1,towerchoose);
         }
 
@@ -69,18 +70,37 @@ void Map::mousePressEvent(QMouseEvent *event)
 {
     int mx = event->x();                            //获取鼠标点击的位置
     int my = event->y();
+    for(int i=0;i<20;i++)
+    {
 
-        if((mx>loc[0].getX())&&(mx<loc[0].getX()+300)&&(my>loc[0].getY())&&(my<loc[0].getY()+300))
+        if((mx>loc[i].getX())&&(mx<loc[i].getX()+300)&&(my>loc[i].getY())&&(my<loc[i].getY()+300))
         {
-            towernum=0;
+            towernum=i;
             clicktower=true;
         }
+
+    }
+    if(clicktower==true&&mx>loc[towernum].getX()-150&&mx<loc[towernum].getX()+150
+            &&my>loc[towernum].getY()-300&&my<loc[towernum].getY())
+    {
+
+           t1.sett(loc[towernum].getX(),loc[towernum].getY());
+    }
+    else if(clicktower==true&&mx>loc[towernum].getX()+150&&mx<loc[towernum].getX()+450
+             &&my>loc[towernum].getY()-300&&my<loc[towernum].getY())
+    {
+            t2.sett(loc[towernum].getX(),loc[towernum].getY());
+    }
 
     QWidget::mousePressEvent(event);
 }
 
 
-
+void Map::timerEvent(QTimerEvent *e)
+{
+    Q_UNUSED(e);
+    repaint();
+}
 
 
 

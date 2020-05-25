@@ -32,7 +32,7 @@ public:
     Map(QWidget *parent=0);
 protected:
     void paintEvent(QPaintEvent *);
-    //void timerEvent(QTimerEvent *);
+    void timerEvent(QTimerEvent *);
     void mousePressEvent(QMouseEvent *event);
     //void mouseMoveEvent(QMouseEvent *event) ;
     //void mouseReleaseEvent(QMouseEvent *event) ;
@@ -42,7 +42,12 @@ private:
     QImage towerchoose;
     Towerpos loc[20];
     int towernum;
+    Tower tt;
+    Tower1 t1;
+    Tower2 t2;
 
+
+    int timerId;
 
     bool inGame;
     bool towerpress;
