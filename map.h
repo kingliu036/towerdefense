@@ -5,6 +5,7 @@
 #include<QMouseEvent>
 #include<QPainter>
 #include"tower.h"
+#include"enemy.h"
 #include<QImage>
 
 class Towerpos
@@ -35,16 +36,18 @@ protected:
     void timerEvent(QTimerEvent *);
     void mousePressEvent(QMouseEvent *event);
     //void mouseMoveEvent(QMouseEvent *event) ;
-    //void mouseReleaseEvent(QMouseEvent *event) ;
+    void mouseReleaseEvent(QMouseEvent *event) ;
 
 private:
     QPixmap map;
     QImage towerchoose;
+    QImage start;
     Towerpos loc[20];
     int towernum;
     Tower tt;
-    Tower1 t1;
-    Tower2 t2;
+    Tower1 t1[10];
+    Tower2 t2[10];
+    int towertype[20]={0};
 
 
     int timerId;
@@ -53,6 +56,10 @@ private:
     bool towerpress;
     bool hastower[20]={false};
     bool clicktower=false;
+    bool updown=false;
+    bool towerup[20]={false};
+    bool max[20]={false};
+    bool startgame=false;
 
 
     void loadImages();

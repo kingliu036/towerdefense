@@ -3,5 +3,12 @@
         <file>timg[7].png</file>
         <file>tower1.png</file>
         <file>choosetower.png</file>
+        <file>tower2body.png</file>
+        <file>tower1body.png</file>
+        <file>deletetower.png</file>
+        <file>up.png</file>
+        <file>up1.png</file>
+        <file>up2.png</file>
+        <file>start.png</file>
     </qresource>
 </RCC>

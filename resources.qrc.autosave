@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/new/prefix1">
-        <file>timg[7].jpg</file>
-    </qresource>
-</RCC>
