@@ -48,6 +48,7 @@ private:
     Tower1 t1[10];
     Tower2 t2[10];
     int towertype[20]={0};
+    enemy1 e1[50];
 
 
     int timerId;

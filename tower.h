@@ -5,6 +5,7 @@
 #include<QMouseEvent>
 #include<QPainter>
 #include<QImage>
+#include"enemy.h"
 
 class Tower
 {

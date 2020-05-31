@@ -33,6 +33,10 @@ void Map::initGame()
     loc[3].set(1820,1400);
     loc[4].set(1800,650);
     timerId = startTimer(10);
+    for(int i=0;i<50;i++)
+    {
+        e1[i].setX(i);
+    }
 }
 
 void Map::paintEvent(QPaintEvent *e)
@@ -101,7 +105,11 @@ void Map::doDrawing()
                 qp.drawImage(t2upp,t2[towernum].tower2up);
             }
         }
-
+        for(int i=0;i<50;i++)
+        {
+            QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
+            qp.drawImage(r1,e1[i].enemywalk);
+        }
     }
 
 }
@@ -210,6 +218,10 @@ void Map::mouseReleaseEvent(QMouseEvent *event)
 void Map::timerEvent(QTimerEvent *e)
 {
     Q_UNUSED(e);
+    for(int i=0;i<50;i++)
+    {
+        e1[i].move(startgame);
+    }
     repaint();
 }
 

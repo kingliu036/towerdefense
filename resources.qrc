@@ -10,5 +10,6 @@
         <file>up1.png</file>
         <file>up2.png</file>
         <file>start.png</file>
+        <file>enemy1.gif</file>
     </qresource>
 </RCC>
