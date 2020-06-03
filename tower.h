@@ -7,6 +7,28 @@
 #include<QImage>
 #include"enemy.h"
 
+class Bullet
+{
+public:
+   Bullet(int x=-100,int y=-100);
+
+
+   int x=0,y=0;
+   double direction;
+   QImage bulletImg;
+   QImage bulletImg2;
+   int getX(){return x;}
+   int getY(){return y;}
+   void setX(int a){x=a;}
+   void setY(int b){y=b;}
+};
+
+class Bullet2:public Bullet
+{
+public:
+    void move(double direct);
+};
+
 class Tower
 {
 public:
@@ -15,7 +37,11 @@ public:
 
     QImage deletetower;
     QImage up;
-
+    bool checkenemy(enemy1 ee[50]);                     //检查攻击范围内是否有敌人
+    double getdirection(enemy1 ee[50]);                  //获得敌人的位置
+    bool attack=false;
+    bool beginattack=false;
+    int nowenemy=-1;
 protected:
     int towerx;
     int towery;
@@ -32,6 +58,8 @@ public:
     Tower1(int x=-1000,int y=-1000);
     void drawtower(QPainter painter);
     void t1up();
+    Bullet bt[10];
+
 protected:
 
 private:
@@ -55,6 +83,10 @@ public:
     Tower2(int x=-1000,int y=-1000);
     void drawtower(QPainter painter);
     void t2up();
+    Bullet2 bt2;
+    int sendX(enemy1 ee[50]);
+    int sendY(enemy1 ee[50]);
+
 protected:
 
 private:

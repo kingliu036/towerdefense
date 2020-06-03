@@ -52,6 +52,8 @@ private:
 
 
     int timerId;
+    int timerId2;
+    int timerId3;
 
     bool inGame;
     bool towerpress;

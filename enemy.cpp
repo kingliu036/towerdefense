@@ -11,15 +11,15 @@ enemy1::enemy1():enemy()
     initenemy();
     loadimages();
 }
-void enemy::move(bool start)
+void enemy::move(bool start)                                //控制敌人移动
 {
-    if(start==true)
+    if(start==true)                                     //start按钮开始后，敌人方可移动
     {
-        if(rightDirection==true)
+        if(rightDirection==true)                            //以向右移动为例，到达转折点后，改变移动方向，进入下一阶段
         {
             if(x<turnx[period])
             {
-                x+=2;
+                x+=1;
             }
             else if(x>=turnx[period]&&period!=2)
             {
@@ -38,7 +38,7 @@ void enemy::move(bool start)
         {
             if(y>=turny[period])
             {
-                y-=2;
+                y-=1;
             }
             else if(y<turny[period])
             {
@@ -51,7 +51,7 @@ void enemy::move(bool start)
         {
             if(y<turny[period])
             {
-                y+=2;
+                y+=1;
             }
             else if(y>=turny[period])
             {

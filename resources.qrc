@@ -11,5 +11,7 @@
         <file>up2.png</file>
         <file>start.png</file>
         <file>enemy1.gif</file>
+        <file>bullet.png</file>
+        <file>bullet2.png</file>
     </qresource>
 </RCC>

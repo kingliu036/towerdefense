@@ -33,6 +33,8 @@ void Map::initGame()
     loc[3].set(1820,1400);
     loc[4].set(1800,650);
     timerId = startTimer(10);
+    timerId2 = startTimer(4000);
+    timerId3=startTimer(300);
     for(int i=0;i<50;i++)
     {
         e1[i].setX(i);
@@ -50,7 +52,7 @@ void Map::doDrawing()
     QPainter qp(this);
     if(inGame)
     {
-        qp.drawPixmap(0,100,3000,1900,map);
+        qp.drawPixmap(0,100,3000,1900,map);                         //通过各种bool型变量控制塔的升级，拆除的画出
         qp.setPen(QPen(Qt::yellow,5,Qt::DashLine) );
         QRectF qstart(1400,0,230,200);
         qp.drawImage(qstart,start);
@@ -61,7 +63,7 @@ void Map::doDrawing()
         }
         if(clicktower==true)
         {
-            QRectF towerchoose1(loc[towernum].getX()-150,loc[towernum].getY()-300,600,300);       //没有repaint（），所以显示不出来
+            QRectF towerchoose1(loc[towernum].getX()-150,loc[towernum].getY()-300,600,300);
             qp.drawImage(towerchoose1,towerchoose);
 
         }
@@ -105,11 +107,39 @@ void Map::doDrawing()
                 qp.drawImage(t2upp,t2[towernum].tower2up);
             }
         }
-        for(int i=0;i<50;i++)
+        for(int i=0;i<50;i++)                                       //利用坐标画出敌人
         {
             QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
             qp.drawImage(r1,e1[i].enemywalk);
         }
+        for(int i=0;i<20;i++)
+        {
+            if(hastower[i]==true&&t1[i].attack==true)                       //通过translate，rotate和角度画出一塔子弹
+            {
+                if(t1[i].checkenemy(e1)==true||t2[i].checkenemy(e1)==true)
+                {
+                    if(towertype[i]==1)
+                    {
+                        qp.translate(loc[i].getX()+150,loc[i].getY()+150);
+                        qp.rotate(atan(t1[i].getdirection(e1))*180/M_PI+180);
+                        qp.translate(-loc[i].getX()-150,-loc[i].getY()-150);
+                        QRectF q1(loc[i].getX()+150,loc[i].getY()+150,800,300);
+                        qp.drawImage(q1,t1[0].bt[0].bulletImg);
+                    }
+
+                }
+            }
+            /*else if(hastower[i]==true&&towertype[i]==2)
+            {
+                QRectF rr(t2[i].sendX(e1),t2[i].sendY(e1),50,50);
+                qp.drawImage(rr,t2[i].bt2.bulletImg2);
+            }*/
+        }
+        /*qp.translate(loc[0].getX()+100,loc[0].getY());
+        qp.rotate(-45);
+        qp.translate(-loc[0].getX()-100,-loc[0].getY());
+        QRectF q1(loc[0].getX()+100,loc[0].getY(),300,200);
+        qp.drawImage(q1,t1[0].bt[0].bulletImg);*/
     }
 
 }
@@ -119,7 +149,8 @@ void Map::mousePressEvent(QMouseEvent *event)
 {
     int mx = event->x();                            //获取鼠标点击的位置
     int my = event->y();
-    for(int i=0;i<20;i++)
+
+    for(int i=0;i<20;i++)                               //通过鼠标点击改变各种bool变量
     {
 
         if((mx>loc[i].getX())&&(mx<loc[i].getX()+300)&&(my>loc[i].getY())&&(my<loc[i].getY()+300))
@@ -199,7 +230,7 @@ void Map::mousePressEvent(QMouseEvent *event)
 }
 
 
-void Map::mouseReleaseEvent(QMouseEvent *event)
+void Map::mouseReleaseEvent(QMouseEvent *event)                     //控制的是start按钮
 {
     int mx=event->x();
     int my=event->y();
@@ -218,9 +249,28 @@ void Map::mouseReleaseEvent(QMouseEvent *event)
 void Map::timerEvent(QTimerEvent *e)
 {
     Q_UNUSED(e);
-    for(int i=0;i<50;i++)
+    int id = e->timerId();
+    if(id==timerId)
     {
-        e1[i].move(startgame);
+        for(int i=0;i<50;i++)
+        {
+            e1[i].move(startgame);              //隔较短时间更新敌人移动数据
+        }
+    }
+
+    else if(id==timerId3)                   //一塔子弹显示暂留控制
+    {
+        for(int i=0;i<20;i++)
+        {
+            t1[i].attack=false;
+        }
+    }
+    else if(id==timerId2)                       //一塔子弹冷却结束，发射
+    {
+        for(int i=0;i<20;i++)
+        {
+            t1[i].attack=true;
+        }
     }
     repaint();
 }
