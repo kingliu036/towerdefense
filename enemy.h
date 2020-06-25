@@ -13,8 +13,10 @@ public:
     int turny[8];
     void move(bool start);
     void setX(int a){x=-1000*a;}
+    void underattack(int a);
     int getX(){return x;}
     int getY(){return y;}
+    int blood;
 
 protected:
     void loadimages();
@@ -22,6 +24,7 @@ protected:
     int x;
     int y;
     int period=0;
+    bool alive=true;
     bool rightDirection=false;
     bool leftDirection=false;
     bool upDirection=false;
@@ -32,7 +35,7 @@ class enemy1:public enemy
 {
 public:
     enemy1();
-
+    int blood0;
     QImage enemywalk;
 private:
 

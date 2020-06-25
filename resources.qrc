@@ -13,5 +13,8 @@
         <file>enemy1.gif</file>
         <file>bullet.png</file>
         <file>bullet2.png</file>
+        <file>first.png</file>
+        <file>button.png</file>
+        <file>load.jpg</file>
     </qresource>
 </RCC>

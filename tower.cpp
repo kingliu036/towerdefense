@@ -70,6 +70,19 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
     direct=qAtan((double)(ee[num].getY()+90-towery)/(ee[num].getX()+90-towerx));
     return  direct;
 }
+
+void Tower::att(enemy1 *ee)
+{
+    for(int i=0;i<50;i++)
+    {
+        if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500)
+        {
+            ee[i].underattack(1);
+            break;
+        }
+    }
+}
+
 Tower1::Tower1(int x,int y)
 {
     towerx=x;

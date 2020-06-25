@@ -6,8 +6,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Map window;
-    window.setWindowTitle("Level 1");
+    MainWindow window;
+    window.setWindowTitle("开始界面");
     window.show();
     return a.exec();
 }

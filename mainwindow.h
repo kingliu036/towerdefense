@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include<QPainter>
+#include<QPixmap>
+#include<QPaintEvent>
+#include<QPushButton>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -12,6 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    void paintEvent(QPaintEvent*);
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

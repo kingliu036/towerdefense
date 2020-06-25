@@ -20,12 +20,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
+    mybutton.cpp \
     tower.cpp
 
 HEADERS += \
     enemy.h \
     mainwindow.h \
     map.h \
+    mybutton.h \
     tower.h
 
 FORMS += \
@@ -38,3 +40,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

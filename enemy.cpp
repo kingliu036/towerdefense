@@ -67,6 +67,23 @@ void enemy::move(bool start)                                //控制敌人移动
     }
 }
 
+void enemy::underattack(int a)
+{
+    if(a==1)
+    {
+        blood-=800;
+    }
+    else if(a==2)
+    {
+        blood-=300;
+    }
+    if(blood<=0)
+    {
+        alive=false;
+    }
+}
+
+
 void enemy1::loadimages()
 {
     enemywalk.load(":/enemy1.gif");
@@ -75,6 +92,8 @@ void enemy1::initenemy()
 {
     x=0;
     y=1100;
+    blood=1000;
+    blood0=1000;
     rightDirection=true;            //初始方向向右；
     turnx[0]=490;                   //初始化地图中拐点坐标；
     turny[0]=1100;

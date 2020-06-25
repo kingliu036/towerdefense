@@ -21,6 +21,7 @@ public:
    int getY(){return y;}
    void setX(int a){x=a;}
    void setY(int b){y=b;}
+
 };
 
 class Bullet2:public Bullet
@@ -42,6 +43,7 @@ public:
     bool attack=false;
     bool beginattack=false;
     int nowenemy=-1;
+    void att(enemy1 ee[50]);
 protected:
     int towerx;
     int towery;
