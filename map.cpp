@@ -109,8 +109,18 @@ void Map::doDrawing()
         }
         for(int i=0;i<50;i++)                                       //利用坐标画出敌人
         {
-            QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
-            qp.drawImage(r1,e1[i].enemywalk);
+            if(e1[i].alive==true)
+            {
+                QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
+                qp.drawImage(r1,e1[i].enemywalk);
+                qp.drawRect(e1[i].getX()+20,e1[i].getY()-50,120,30);
+                QBrush brush1;
+                brush1.setColor(Qt::green);
+                brush1.setStyle(Qt::SolidPattern);
+                qp.setBrush(brush1);
+                qp.drawRect(e1[i].getX()+20,e1[i].getY()-50,120*e1[i].blood/e1[i].blood0,30);
+            }
+
         }
         for(int i=0;i<20;i++)
         {
@@ -270,6 +280,7 @@ void Map::timerEvent(QTimerEvent *e)
         for(int i=0;i<20;i++)
         {
             t1[i].attack=true;
+            t1[i].att(e1);
         }
     }
     repaint();

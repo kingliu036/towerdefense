@@ -71,7 +71,7 @@ void enemy::underattack(int a)
 {
     if(a==1)
     {
-        blood-=800;
+        blood-=200;
     }
     else if(a==2)
     {

@@ -17,14 +17,14 @@ public:
     int getX(){return x;}
     int getY(){return y;}
     int blood;
-
+    bool alive=true;
 protected:
     void loadimages();
     void initenemy();                          //初始化敌人
     int x;
     int y;
     int period=0;
-    bool alive=true;
+
     bool rightDirection=false;
     bool leftDirection=false;
     bool upDirection=false;
