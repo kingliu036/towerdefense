@@ -61,10 +61,12 @@ private:
     int castleblood;
     enemy1 e1[500];
     enemy2 e2[500];
+    enemy3 e3[500];
     playerstatus p1;
     int totalenemy=0;
     int current1=0;
     int current2=0;
+    int current3=0;
 
 
     int timerId;

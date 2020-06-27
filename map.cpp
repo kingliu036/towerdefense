@@ -134,7 +134,11 @@ void Map::doDrawing()
                 qp.setBrush(brush2);
                 qp.drawRect(e2[i].getX()+20,e2[i].getY()-20,120*e2[i].blood/e2[i].blood0,30);
             }
-
+            if(e3[i].alive==true)
+            {
+                QRectF r3(e3[i].getX(),e3[i].getY(),210,210);
+                qp.drawImage(r3,e3[0].crazy);
+            }
 
 
         }
@@ -331,6 +335,7 @@ void Map::timerEvent(QTimerEvent *e)
         {
             e1[i].move(startgame);              //隔较短时间更新敌人移动数据
             e2[i].move(startgame);
+            e3[i].move(startgame);
         }
         hurt();
     }
@@ -359,7 +364,7 @@ void Map::timerEvent(QTimerEvent *e)
         {
             if(hastower[i]==true&&towertype[i]==2)
             {
-                p1.money+=t2[i].att(e1,e2);
+                p1.money+=t2[i].att(e1,e2,e3);
             }
         }
         setWave();
@@ -380,6 +385,11 @@ void Map::hurt()
         {
             castleblood-=1;
             e2[i].alive=false;
+        }
+        if(e3[i].alive==true&&e3[i].getX()>=2300&&e3[i].getY()<780)
+        {
+            castleblood-=1;
+            e3[i].alive=false;
         }
     }
 }
@@ -403,6 +413,13 @@ void Map::setWave()
         current2++;
         e2[current2].setX(0);
         e2[current2].blood0=e2[current2].blood+=wave*80;
+    }
+    if(n%5==1)
+    {
+        totalenemy++;
+        current3++;
+        e3[current3].setX(0);
+
     }
     if(totalenemy==wave*10+10)
     {

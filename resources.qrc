@@ -19,5 +19,6 @@
         <file>hdl.mp3</file>
         <file>monster.png</file>
         <file>castle.png</file>
+        <file>enemy3.png</file>
     </qresource>
 </RCC>

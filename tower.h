@@ -97,10 +97,10 @@ public:
     Bullet2 bt2;
     int sendX(enemy1 ee[50]);
     int sendY(enemy1 ee[50]);
-    int att(enemy1 ee[50],enemy2 ee2[50]);
+    int att(enemy1 ee[500],enemy2 ee2[500],enemy3 ee3[500]);
     void draw(QPainter * painter);
     void addbullet();
-    int power;
+    int power=300;
 protected:
 
 private:

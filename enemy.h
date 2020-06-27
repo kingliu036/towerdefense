@@ -60,6 +60,15 @@ private:
 
 };
 
-
+class enemy3:public enemy
+{
+public:
+    enemy3();
+    int blood0;
+    QImage crazy;
+private:
+    void loadimages();
+    void initenemy();
+};
 
 #endif // ENEMY_H

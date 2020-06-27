@@ -195,7 +195,7 @@ int Tower2::sendY(enemy1 *ee)
     return  bt2.getY();
 }
 
-int Tower2::att(enemy1 *ee,enemy2 * ee2)
+int Tower2::att(enemy1 *ee,enemy2 * ee2,enemy3 * ee3)
 {
     int a=0;
     for(int i=0;i<500;i++)
@@ -217,6 +217,15 @@ int Tower2::att(enemy1 *ee,enemy2 * ee2)
             bul3->move();
             update();
             a=ee2[i].underattack(power);
+            break;
+        }
+        if(ee3[i].getX()<towerx+500&&ee3[i].getX()>towerx-500&&ee3[i].getY()<towery+500&&ee3[i].getY()>towery-500&&ee3[i].alive==true)
+        {
+            bullet3 * bul3=new bullet3(QPoint(towerx+150,towery+150),QPoint(ee3[i].getX()+50,ee3[i].getY()+50),":/bullet2.png");
+            bullet_list.push_back(bul3);
+            bul3->move();
+            update();
+            a=ee3[i].underattack(power);
             break;
         }
     }
