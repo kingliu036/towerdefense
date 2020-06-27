@@ -13,7 +13,7 @@ public:
     int turny[8];
     void move(bool start);
     void setX(int a){x=-1000*a;}
-    void underattack(int a);
+    int underattack(int a);
     int getX(){return x;}
     int getY(){return y;}
     int blood;
@@ -43,7 +43,6 @@ private:
     void initenemy();
 
 };
-
 
 
 #endif // ENEMY_H

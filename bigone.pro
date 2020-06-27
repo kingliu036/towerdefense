@@ -16,18 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bullet3.cpp \
     enemy.cpp \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
     mybutton.cpp \
+    playerstatus.cpp \
     tower.cpp
 
 HEADERS += \
+    bullet3.h \
     enemy.h \
     mainwindow.h \
     map.h \
     mybutton.h \
+    playerstatus.h \
     tower.h
 
 FORMS += \

@@ -1,5 +1,8 @@
 #include "tower.h"
+#include"map.h"
 #include<QtCore/qmath.h>
+#include<QPainter>
+#include<QTimer>
 
 Bullet::Bullet(int x,int y)
 {
@@ -35,7 +38,7 @@ bool Tower::checkenemy(enemy1 ee[50])
     bool a=false;
     for(int i=0;i<50;i++)
     {
-        if(ee[i].getX()<towerx+500&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500)
+        if(ee[i].getX()<towerx+500&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
             a=true;
             break;
@@ -71,16 +74,18 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
     return  direct;
 }
 
-void Tower::att(enemy1 *ee)
+int Tower::att(enemy1 *ee)
 {
+    int a=0;
     for(int i=0;i<50;i++)
     {
-        if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500)
+        if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
-            ee[i].underattack(1);
+            a=ee[i].underattack(1);
             break;
         }
     }
+    return a;
 }
 
 Tower1::Tower1(int x,int y)
@@ -172,9 +177,30 @@ int Tower2::sendY(enemy1 *ee)
     return  bt2.getY();
 }
 
+int Tower2::att(enemy1 *ee)
+{
+    int a=0;
+    for(int i=0;i<50;i++)
+    {
+        if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
+        {
+            a=ee[i].underattack(2);
+            bullet3 * bul3=new bullet3(QPoint(towerx,towery),QPoint(ee[i].getX(),ee[i].getY()),":/bullet2.png");
+            bullet_list.push_back(bul3);
+            bul3->move();
+            update();
+            break;
+        }
+    }
+    return a;
+}
 
+void Tower2::draw(QPainter *painter)
+{
+    foreach(bullet3 * bul3,bullet_list)
+    bul3->draw(painter);
 
-
+}
 
 
 

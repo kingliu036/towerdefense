@@ -7,6 +7,8 @@
 #include"tower.h"
 #include"enemy.h"
 #include<QImage>
+#include"playerstatus.h"
+#include"bullet3.h"
 
 class Towerpos
 {
@@ -31,12 +33,14 @@ class Map:public QWidget
 {
 public:
     Map(QWidget *parent=0);
+    void addbullet3();
 protected:
     void paintEvent(QPaintEvent *);
     void timerEvent(QTimerEvent *);
     void mousePressEvent(QMouseEvent *event);
     //void mouseMoveEvent(QMouseEvent *event) ;
     void mouseReleaseEvent(QMouseEvent *event) ;
+
 
 private:
     QPixmap map;
@@ -49,11 +53,13 @@ private:
     Tower2 t2[10];
     int towertype[20]={0};
     enemy1 e1[50];
+    playerstatus p1;
 
 
     int timerId;
     int timerId2;
     int timerId3;
+    int timerId4;
 
     bool inGame;
     bool towerpress;
@@ -63,6 +69,9 @@ private:
     bool towerup[20]={false};
     bool max[20]={false};
     bool startgame=false;
+
+
+
 
 
     void loadImages();

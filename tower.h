@@ -6,7 +6,8 @@
 #include<QPainter>
 #include<QImage>
 #include"enemy.h"
-
+#include"bullet3.h"
+#include<QList>
 class Bullet
 {
 public:
@@ -30,6 +31,9 @@ public:
     void move(double direct);
 };
 
+
+
+
 class Tower
 {
 public:
@@ -43,7 +47,7 @@ public:
     bool attack=false;
     bool beginattack=false;
     int nowenemy=-1;
-    void att(enemy1 ee[50]);
+    int att(enemy1 ee[50]);
 protected:
     int towerx;
     int towery;
@@ -79,7 +83,7 @@ private:
 };
 
 
-class Tower2:public Tower
+class Tower2:public Tower,public QWidget
 {
 public:
     Tower2(int x=-1000,int y=-1000);
@@ -88,7 +92,9 @@ public:
     Bullet2 bt2;
     int sendX(enemy1 ee[50]);
     int sendY(enemy1 ee[50]);
-
+    int att(enemy1 ee[50]);
+    void draw(QPainter * painter);
+    void addbullet();
 protected:
 
 private:
@@ -100,7 +106,7 @@ private:
     friend class Map;
 
 
-
+    QList<bullet3*>bullet_list;
 
 
     void loadimages();

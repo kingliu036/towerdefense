@@ -5,6 +5,7 @@
 #include<QtCore/qmath.h>
 #include"tower.h"
 #include"enemy.h"
+#include"playerstatus.h"
 
 Map::Map(QWidget * parent):QWidget(parent)
 {
@@ -35,6 +36,7 @@ void Map::initGame()
     timerId = startTimer(10);
     timerId2 = startTimer(4000);
     timerId3=startTimer(300);
+    timerId4=startTimer(2500);
     for(int i=0;i<50;i++)
     {
         e1[i].setX(i);
@@ -114,7 +116,7 @@ void Map::doDrawing()
                 QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
                 qp.drawImage(r1,e1[i].enemywalk);
                 qp.drawRect(e1[i].getX()+20,e1[i].getY()-50,120,30);
-                QBrush brush1;
+                QBrush brush1;                                                  //利用blood与blood0画出血条
                 brush1.setColor(Qt::green);
                 brush1.setStyle(Qt::SolidPattern);
                 qp.setBrush(brush1);
@@ -135,6 +137,7 @@ void Map::doDrawing()
                         qp.translate(-loc[i].getX()-150,-loc[i].getY()-150);
                         QRectF q1(loc[i].getX()+150,loc[i].getY()+150,800,300);
                         qp.drawImage(q1,t1[0].bt[0].bulletImg);
+
                     }
 
                 }
@@ -150,6 +153,21 @@ void Map::doDrawing()
         qp.translate(-loc[0].getX()-100,-loc[0].getY());
         QRectF q1(loc[0].getX()+100,loc[0].getY(),300,200);
         qp.drawImage(q1,t1[0].bt[0].bulletImg);*/
+        QFont font1("宋体",15,QFont::Bold,true);
+        qp.setFont(font1);
+        qp.setPen(Qt::black);
+        QString ab=QString::number(p1.money);
+        qp.drawText(80,50,"MONEY:");
+        qp.drawText(200,50,ab);
+
+        t2[0].draw(&qp);
+        t2[1].draw(&qp);
+        t2[2].draw(&qp);
+        t2[3].draw(&qp);
+        t2[4].draw(&qp);
+
+
+
     }
 
 }
@@ -185,18 +203,29 @@ void Map::mousePressEvent(QMouseEvent *event)
     if(clicktower==true&&mx>loc[towernum].getX()-150&&mx<loc[towernum].getX()+150
             &&my>loc[towernum].getY()-300&&my<loc[towernum].getY()&&hastower[towernum]==false)
     {
+        if(p1.money>=300)
+        {
             hastower[towernum]=true;
             t1[towernum].sett(loc[towernum].getX(),loc[towernum].getY());
             towertype[towernum]=1;
             clicktower=false;
+            p1.money-=300;
+        }
+
+
     }
     else if(clicktower==true&&mx>loc[towernum].getX()+150&&mx<loc[towernum].getX()+450
              &&my>loc[towernum].getY()-300&&my<loc[towernum].getY()&&hastower[towernum]==false)
     {
+        if(p1.money>=250)
+        {
             hastower[towernum]=true;
             t2[towernum].sett(loc[towernum].getX(),loc[towernum].getY());
             towertype[towernum]=2;
             clicktower=false;
+            p1.money-=250;
+        }
+
     }
     else if(clicktower==false&&updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())
             &&(my<loc[towernum].getY())&&(my>loc[towernum].getY()-300)&&hastower[towernum]==true)
@@ -279,13 +308,25 @@ void Map::timerEvent(QTimerEvent *e)
     {
         for(int i=0;i<20;i++)
         {
-            t1[i].attack=true;
-            t1[i].att(e1);
+            if(hastower[i]==true&&towertype[i]==1)
+            {
+                t1[i].attack=true;
+                p1.money+=t1[i].att(e1);
+            }
+        }
+    }
+    else if(id==timerId4)
+    {
+        for(int i=0;i<20;i++)
+        {
+            if(hastower[i]==true&&towertype[i]==2)
+            {
+                p1.money+=t2[i].att(e1);
+            }
         }
     }
     repaint();
 }
-
 
 
 

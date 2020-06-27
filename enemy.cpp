@@ -67,7 +67,7 @@ void enemy::move(bool start)                                //控制敌人移动
     }
 }
 
-void enemy::underattack(int a)
+int enemy::underattack(int a)                      //敌人受击模块，进行敌人受到不同塔（由形参a决定）的攻击后的扣血以及判断是否活着；
 {
     if(a==1)
     {
@@ -80,6 +80,11 @@ void enemy::underattack(int a)
     if(blood<=0)
     {
         alive=false;
+        return 200;
+    }
+    else
+    {
+        return 0;
     }
 }
 
