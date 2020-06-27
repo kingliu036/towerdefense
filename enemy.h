@@ -14,12 +14,14 @@ public:
     void move(bool start);
     void setX1(int a){x=-1000*a;}
     void setX2(int a){x=-1000*a-500;}
+    void setX(int a){x=a;}
 
     int underattack(int a);
     int getX(){return x;}
     int getY(){return y;}
     int blood;
     bool alive=true;
+    int speed=2;
 protected:
     void loadimages();
     void initenemy();                          //初始化敌人

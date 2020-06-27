@@ -33,10 +33,10 @@ void Tower::sett(int x, int y)
     towery=y;
 }
 
-bool Tower::checkenemy(enemy1 ee[50],enemy2 ee2[50])
+bool Tower::checkenemy(enemy1 ee[500],enemy2 ee2[500])
 {
     bool a=false;
-    for(int i=0;i<50;i++)
+    for(int i=0;i<500;i++)
     {
         if(ee[i].getX()<towerx+500&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
@@ -56,7 +56,7 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
 {
 
     int num=100;
-    for(int i=0;i<50;i++)
+    for(int i=0;i<500;i++)
     {
         if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500)
         {
@@ -82,16 +82,24 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
 int Tower::att(enemy1 *ee,enemy2 *ee2)
 {
     int a=0;
-    for(int i=0;i<50;i++)
+    for(int i=0;i<500;i++)
     {
         if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
-            a=ee[i].underattack(1);
+            a=ee[i].underattack(power);
+            if(slowdown==true)
+            {
+                ee[i].speed=1;
+            }
 
         }
         if(ee2[i].getX()<towerx&&ee2[i].getX()>towerx-500&&ee2[i].getY()<towery+500&&ee2[i].getY()>towery-500&&ee2[i].alive==true)
         {
-            a=ee2[i].underattack(1);
+            a=ee2[i].underattack(power);
+            if(slowdown==true)
+            {
+                ee2[i].speed=1;
+            }
 
         }
     }
@@ -152,7 +160,7 @@ void Tower2::t2up()
 }
 
 
-int Tower2::sendX(enemy1 ee[50])
+int Tower2::sendX(enemy1 ee[500])
 {
     if(beginattack==true)
     {
@@ -190,7 +198,7 @@ int Tower2::sendY(enemy1 *ee)
 int Tower2::att(enemy1 *ee,enemy2 * ee2)
 {
     int a=0;
-    for(int i=0;i<50;i++)
+    for(int i=0;i<500;i++)
     {
         if(ee[i].getX()<towerx+500&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
@@ -199,7 +207,7 @@ int Tower2::att(enemy1 *ee,enemy2 * ee2)
             bullet_list.push_back(bul3);
             bul3->move();
             update();
-            a=ee[i].underattack(2);
+            a=ee[i].underattack(power);
             break;
         }
         if(ee2[i].getX()<towerx+500&&ee2[i].getX()>towerx-500&&ee2[i].getY()<towery+500&&ee2[i].getY()>towery-500&&ee2[i].alive==true)
@@ -208,7 +216,7 @@ int Tower2::att(enemy1 *ee,enemy2 * ee2)
             bullet_list.push_back(bul3);
             bul3->move();
             update();
-            a=ee2[i].underattack(2);
+            a=ee2[i].underattack(power);
             break;
         }
     }
@@ -222,7 +230,7 @@ void Tower2::draw(QPainter *painter)
 
 }
 
-void Tower1::draw(QPainter * painter,enemy1 e1[50])
+void Tower1::draw(QPainter * painter,enemy1 e1[500])
 {
     QPen penn;
     penn.setColor(Qt::black);
@@ -233,6 +241,15 @@ void Tower1::draw(QPainter * painter,enemy1 e1[50])
 
 }
 
+void Tower1::upgrade()
+{
+    power+=400;
+    slowdown=true;
+}
 
+void Tower2::upgrade()
+{
+    power=500;
+}
 
 

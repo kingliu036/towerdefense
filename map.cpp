@@ -40,11 +40,7 @@ void Map::initGame()
     timerId2 = startTimer(4000);
     timerId3=startTimer(300);
     timerId4=startTimer(2500);
-    for(int i=0;i<50;i++)
-    {
-        e1[i].setX1(i);
-        e2[i].setX2(i);
-    }
+
 
 }
 
@@ -114,7 +110,7 @@ void Map::doDrawing()
                 qp.drawImage(t2upp,t2[towernum].tower2up);
             }
         }
-        for(int i=0;i<50;i++)                                       //利用坐标画出敌人
+        for(int i=0;i<500;i++)                                       //利用坐标画出敌人
         {
             if(e1[i].alive==true)
             {
@@ -267,11 +263,13 @@ void Map::mousePressEvent(QMouseEvent *event)
         {
             towerup[towernum]=true;
             p1.money-=270;
+            t1[towernum].upgrade();
         }
         else if(towertype[towernum]==2)
         {
             towerup[towernum]=true;
             p1.money-=270;
+            t2[towernum].upgrade();
         }
     }
     else if(updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())                  //拆塔；
@@ -329,7 +327,7 @@ void Map::timerEvent(QTimerEvent *e)
         {
             inGame=false;
         }
-        for(int i=0;i<50;i++)
+        for(int i=0;i<500;i++)
         {
             e1[i].move(startgame);              //隔较短时间更新敌人移动数据
             e2[i].move(startgame);
@@ -364,13 +362,14 @@ void Map::timerEvent(QTimerEvent *e)
                 p1.money+=t2[i].att(e1,e2);
             }
         }
+        setWave();
     }
     repaint();
 }
 
 void Map::hurt()
 {
-    for(int i=0;i<50;i++)
+    for(int i=0;i<500;i++)
     {
         if(e1[i].alive==true&&e1[i].getX()>=2300&&e1[i].getY()<780)
         {
@@ -387,7 +386,28 @@ void Map::hurt()
 
 void Map::setWave()
 {
-
+    QTime t;
+    t=QTime::currentTime();
+    qsrand(t.msec()+t.second()*1000);
+    int n=qrand();
+    if(n%2==1)
+    {
+        totalenemy++;
+        current1++;
+        e1[current1].setX(0);
+        e1[current1].blood0=e1[current1].blood+=wave*80;
+    }
+    else if(n%2==0)
+    {
+        totalenemy++;
+        current2++;
+        e2[current2].setX(0);
+        e2[current2].blood0=e2[current2].blood+=wave*80;
+    }
+    if(totalenemy==wave*10+10)
+    {
+        wave++;
+    }
 }
 
 

@@ -39,19 +39,21 @@ class Tower
 public:
     Tower(int x=-1000,int y=-1000);
     void sett(int x,int y);
-
+    virtual void upgrade()=0;
     QImage deletetower;
     QImage up;
-    bool checkenemy(enemy1 ee[50],enemy2 ee2[50]);                     //检查攻击范围内是否有敌人
-    double getdirection(enemy1 ee[50]);                  //获得敌人的位置
+    int power=300;
+    bool checkenemy(enemy1 ee[500],enemy2 ee2[500]);                     //检查攻击范围内是否有敌人
+    double getdirection(enemy1 ee[500]);                  //获得敌人的位置
     bool attack=false;
     bool beginattack=false;
     int nowenemy=-1;
-    int att(enemy1 ee[50],enemy2 ee2[50]);
+    int att(enemy1 ee[500],enemy2 ee2[500]);
+    bool slowdown=false;
 protected:
     int towerx;
     int towery;
-
+    bool systemup=false;
 
 
 
@@ -66,7 +68,8 @@ public:
     void t1up();
     Bullet bt[10];
     void draw(QPainter * painter,enemy1 e1[50]);
-
+    void upgrade();
+    int power;
 protected:
 
 private:
@@ -89,6 +92,7 @@ class Tower2:public Tower,public QWidget
 public:
     Tower2(int x=-1000,int y=-1000);
     void drawtower(QPainter painter);
+    void upgrade();
     void t2up();
     Bullet2 bt2;
     int sendX(enemy1 ee[50]);
@@ -96,6 +100,7 @@ public:
     int att(enemy1 ee[50],enemy2 ee2[50]);
     void draw(QPainter * painter);
     void addbullet();
+    int power;
 protected:
 
 private:

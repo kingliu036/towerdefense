@@ -24,7 +24,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(x<turnx[period])
             {
-                x+=2;
+                x+=speed;
             }
             else if(x>=turnx[period]&&period!=2)
             {
@@ -43,7 +43,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(y>=turny[period])
             {
-                y-=2;
+                y-=speed;
             }
             else if(y<turny[period])
             {
@@ -56,7 +56,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(y<turny[period])
             {
-                y+=2;
+                y+=speed;
             }
             else if(y>=turny[period])
             {
@@ -74,14 +74,7 @@ void enemy::move(bool start)                                //控制敌人移动
 
 int enemy::underattack(int a)                      //敌人受击模块，进行敌人受到不同塔（由形参a决定）的攻击后的扣血以及判断是否活着；
 {
-    if(a==1)
-    {
-        blood-=200;
-    }
-    else if(a==2)
-    {
-        blood-=300;
-    }
+    blood-=a;
     if(blood<=0)
     {
         alive=false;
@@ -100,7 +93,7 @@ void enemy1::loadimages()
 }
 void enemy1::initenemy()
 {
-    x=0;
+    x=-100000;
     y=1100;
     blood=1000;
     blood0=1000;
@@ -126,7 +119,7 @@ void enemy2::loadimages()
 }
 void enemy2::initenemy()
 {
-    x=0;
+    x=-100000;
     y=1080;
     blood0=blood=500;
     rightDirection=true;            //初始方向向右；
