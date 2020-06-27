@@ -92,11 +92,11 @@ int enemy::underattack(int a)                      //敌人受击模块，进行
 }
 
 
-void enemy1::loadimages()
+void enemy1::loadimages()                           //加载敌人图片
 {
     enemywalk.load(":/enemy1.gif");
 }
-void enemy1::initenemy()
+void enemy1::initenemy()                            //初始化敌人，设定血量、位置等
 {
     x=-100000;
     y=1100;

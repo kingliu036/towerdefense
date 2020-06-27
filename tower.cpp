@@ -27,13 +27,13 @@ Tower::Tower(int x,int y)
     towery=y;
 }
 
-void Tower::sett(int x, int y)
+void Tower::sett(int x, int y)                          //给塔的坐标赋值
 {
     towerx=x;
     towery=y;
 }
 
-bool Tower::checkenemy(enemy1 ee[500],enemy2 ee2[500])
+bool Tower::checkenemy(enemy1 ee[500],enemy2 ee2[500])          //检查攻击范围内是否有敌人，特殊敌人无法侦测
 {
     bool a=false;
     for(int i=0;i<500;i++)
@@ -79,7 +79,7 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
     return  direct;
 }
 
-int Tower::att(enemy1 *ee,enemy2 *ee2)
+int Tower::att(enemy1 *ee,enemy2 *ee2)                                  //塔的攻击，造成敌人血量的减少
 {
     int a=0;
     for(int i=0;i<500;i++)
@@ -87,7 +87,7 @@ int Tower::att(enemy1 *ee,enemy2 *ee2)
         if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
             a=ee[i].underattack(power);
-            if(slowdown==true)
+            if(slowdown==true)                          //塔升级后的特殊功能，使敌人减速
             {
                 ee[i].speed=1;
             }
@@ -195,7 +195,7 @@ int Tower2::sendY(enemy1 *ee)
     return  bt2.getY();
 }
 
-int Tower2::att(enemy1 *ee,enemy2 * ee2,enemy3 * ee3)
+int Tower2::att(enemy1 *ee,enemy2 * ee2,enemy3 * ee3)               //二塔的攻击。二塔可以追踪到特殊敌人
 {
     int a=0;
     for(int i=0;i<500;i++)
@@ -204,7 +204,7 @@ int Tower2::att(enemy1 *ee,enemy2 * ee2,enemy3 * ee3)
         {
 
             bullet3 * bul3=new bullet3(QPoint(towerx+150,towery+150),QPoint(ee[i].getX()+50,ee[i].getY()+50),":/bullet2.png");
-            bullet_list.push_back(bul3);
+            bullet_list.push_back(bul3);                    //调用动画
             bul3->move();
             update();
             a=ee[i].underattack(power);
@@ -239,7 +239,7 @@ void Tower2::draw(QPainter *painter)
 
 }
 
-void Tower1::draw(QPainter * painter,enemy1 e1[500])
+void Tower1::draw(QPainter * painter,enemy1 e1[500])                //画出一塔的辐射攻击效果
 {
     QPen penn;
     penn.setColor(Qt::black);
@@ -250,7 +250,7 @@ void Tower1::draw(QPainter * painter,enemy1 e1[500])
 
 }
 
-void Tower1::upgrade()
+void Tower1::upgrade()              //升级函数，可以增加塔的基本属性，并获得特殊能力
 {
     power+=400;
     slowdown=true;

@@ -13,7 +13,7 @@ Map::Map(QWidget * parent):QWidget(parent)
     inGame=true;
 
 
-    resize(3000,2000);
+    resize(3000,2000);                  //设置界面大小
     loadImages();
     initGame();
 }
@@ -31,7 +31,7 @@ void Map::loadImages()
 void Map::initGame()
 {
     castleblood=3;
-    loc[0].set(750,950);
+    loc[0].set(750,950);                //设定几个塔的位置
     loc[1].set(1070,950);
     loc[2].set(1500,1400);
     loc[3].set(1820,1400);
@@ -166,7 +166,7 @@ void Map::doDrawing()
         qp.translate(-loc[0].getX()-100,-loc[0].getY());
         QRectF q1(loc[0].getX()+100,loc[0].getY(),300,200);
         qp.drawImage(q1,t1[0].bt[0].bulletImg);*/
-        QFont font1("宋体",15,QFont::Bold,true);
+        QFont font1("宋体",15,QFont::Bold,true);              //画出money、wave；
         qp.setFont(font1);
         qp.setPen(Qt::black);
         QString ab=QString::number(p1.money);
@@ -358,7 +358,7 @@ void Map::timerEvent(QTimerEvent *e)
             }
         }
     }
-    else if(id==timerId4)
+    else if(id==timerId4)                           //二塔冷却时间、生成敌人的间隔时间
     {
         for(int i=0;i<20;i++)
         {
@@ -372,7 +372,7 @@ void Map::timerEvent(QTimerEvent *e)
     repaint();
 }
 
-void Map::hurt()
+void Map::hurt()                                                        //实现对最终保卫对象的伤害
 {
     for(int i=0;i<500;i++)
     {
@@ -394,37 +394,42 @@ void Map::hurt()
     }
 }
 
-void Map::setWave()
+void Map::setWave()                                     //生成敌人
 {
     QTime t;
     t=QTime::currentTime();
     qsrand(t.msec()+t.second()*1000);
-    int n=qrand();
-    if(n%2==1)
+    int n=qrand();                                      //生成随机数，利用该随机数去决定生成敌人的类型
+    if(startgame==true)
     {
-        totalenemy++;
-        current1++;
-        e1[current1].setX(0);
-        e1[current1].blood0=e1[current1].blood+=wave*80;
-    }
-    else if(n%2==0)
-    {
-        totalenemy++;
-        current2++;
-        e2[current2].setX(0);
-        e2[current2].blood0=e2[current2].blood+=wave*80;
-    }
-    if(n%5==1)
-    {
-        totalenemy++;
-        current3++;
-        e3[current3].setX(0);
+        if(n%2==1)
+        {
+            totalenemy++;
+            current1++;
+            e1[current1].setX(0);
+            e1[current1].blood0=e1[current1].blood+=wave*80;
+        }
+        else if(n%2==0)
+        {
+            totalenemy++;
+            current2++;
+            e2[current2].setX(0);
+            e2[current2].blood0=e2[current2].blood+=wave*80;
+        }
+        if(n%5==1)
+        {
+            totalenemy++;
+            current3++;
+            e3[current3].setX(0);
 
+        }
+        if(totalenemy==wave*10+10)              //生成一定数量的敌人后波数增加，实际上波数增加后每波敌人会更多，更强
+        {
+            wave++;
+        }
     }
-    if(totalenemy==wave*10+10)
-    {
-        wave++;
-    }
+
+
 }
 
 

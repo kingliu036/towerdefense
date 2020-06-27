@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QMediaPlayer * player = new QMediaPlayer;
-    player->setMedia(QUrl("qrc:/hdl.mp3"));
+    player->setMedia(QUrl("qrc:/hdl.mp3"));                 //播放音乐；
     player->setVolume(30);
     player->play();
     MainWindow window;

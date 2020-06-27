@@ -8,7 +8,7 @@
 #include <QPainter>
 
 
-class bullet3 : public QObject
+class bullet3 : public QObject                                                  //用于实现二塔的动画
 {
     Q_OBJECT
     Q_PROPERTY(QPoint currentPos READ getCurrentPos WRITE setCurrentPos)

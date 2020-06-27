@@ -8,7 +8,7 @@ bullet3::bullet3(QPoint startPos,QPoint targetPos,QString fileName):QObject(0),p
 
 }
 
-void bullet3::draw(QPainter *painter)
+void bullet3::draw(QPainter *painter)                           //画出子弹
 {
     if(currentPos!=targetPos)
     painter->drawPixmap(currentPos,pixmap);
@@ -16,7 +16,7 @@ void bullet3::draw(QPainter *painter)
 
 void bullet3::move()
 {
-    QPropertyAnimation * animation =new QPropertyAnimation(this,"currentPos");
+    QPropertyAnimation * animation =new QPropertyAnimation(this,"currentPos");          //使得currentpos由startpos运动到targetpos
     animation->setDuration(300);
     animation->setStartValue(startPos);
     animation->setEndValue(targetPos);

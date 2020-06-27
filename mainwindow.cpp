@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     this->setFixedSize(3000,2000);
     ui->setupUi(this);
-    mybutton * but=new mybutton(":/button.png");
+    mybutton * but=new mybutton(":/button.png");                        //通过button建立开始界面与游戏界面的切换
     but->setParent(this);
     but->move(1400,1400);
     connect(but,&QPushButton::clicked,this,&MainWindow::close);

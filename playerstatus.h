@@ -2,7 +2,7 @@
 #define PLAYERSTATUS_H
 
 
-class playerstatus
+class playerstatus                      //玩家状态类，主要控制玩家的金钱以及波数；
 {
 public:
     playerstatus();
