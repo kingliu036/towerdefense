@@ -34,25 +34,33 @@ class Map:public QWidget
 public:
     Map(QWidget *parent=0);
     void addbullet3();
+    void setWave();
+
+
 protected:
     void paintEvent(QPaintEvent *);
     void timerEvent(QTimerEvent *);
     void mousePressEvent(QMouseEvent *event);
     //void mouseMoveEvent(QMouseEvent *event) ;
     void mouseReleaseEvent(QMouseEvent *event) ;
+    void hurt();
 
 
 private:
     QPixmap map;
     QImage towerchoose;
     QImage start;
+    QImage cast;
     Towerpos loc[20];
     int towernum;
     Tower tt;
     Tower1 t1[10];
     Tower2 t2[10];
     int towertype[20]={0};
+    int wave=0;
+    int castleblood;
     enemy1 e1[50];
+    enemy2 e2[50];
     playerstatus p1;
 
 

@@ -33,12 +33,17 @@ void Tower::sett(int x, int y)
     towery=y;
 }
 
-bool Tower::checkenemy(enemy1 ee[50])
+bool Tower::checkenemy(enemy1 ee[50],enemy2 ee2[50])
 {
     bool a=false;
     for(int i=0;i<50;i++)
     {
         if(ee[i].getX()<towerx+500&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
+        {
+            a=true;
+            break;
+        }
+        if(ee2[i].getX()<towerx+500&&ee2[i].getX()>towerx-500&&ee2[i].getY()<towery+500&&ee2[i].getY()>towery-500&&ee2[i].alive==true)
         {
             a=true;
             break;
@@ -74,7 +79,7 @@ double Tower::getdirection(enemy1 ee[50])                   //计算得到敌人
     return  direct;
 }
 
-int Tower::att(enemy1 *ee)
+int Tower::att(enemy1 *ee,enemy2 *ee2)
 {
     int a=0;
     for(int i=0;i<50;i++)
@@ -82,7 +87,12 @@ int Tower::att(enemy1 *ee)
         if(ee[i].getX()<towerx&&ee[i].getX()>towerx-500&&ee[i].getY()<towery+500&&ee[i].getY()>towery-500&&ee[i].alive==true)
         {
             a=ee[i].underattack(1);
-            break;
+
+        }
+        if(ee2[i].getX()<towerx&&ee2[i].getX()>towerx-500&&ee2[i].getY()<towery+500&&ee2[i].getY()>towery-500&&ee2[i].alive==true)
+        {
+            a=ee2[i].underattack(1);
+
         }
     }
     return a;
@@ -177,7 +187,7 @@ int Tower2::sendY(enemy1 *ee)
     return  bt2.getY();
 }
 
-int Tower2::att(enemy1 *ee)
+int Tower2::att(enemy1 *ee,enemy2 * ee2)
 {
     int a=0;
     for(int i=0;i<50;i++)
@@ -192,6 +202,15 @@ int Tower2::att(enemy1 *ee)
             a=ee[i].underattack(2);
             break;
         }
+        if(ee2[i].getX()<towerx+500&&ee2[i].getX()>towerx-500&&ee2[i].getY()<towery+500&&ee2[i].getY()>towery-500&&ee2[i].alive==true)
+        {
+            bullet3 * bul3=new bullet3(QPoint(towerx+150,towery+150),QPoint(ee2[i].getX()+50,ee2[i].getY()+50),":/bullet2.png");
+            bullet_list.push_back(bul3);
+            bul3->move();
+            update();
+            a=ee2[i].underattack(2);
+            break;
+        }
     }
     return a;
 }
@@ -203,7 +222,16 @@ void Tower2::draw(QPainter *painter)
 
 }
 
+void Tower1::draw(QPainter * painter,enemy1 e1[50])
+{
+    QPen penn;
+    penn.setColor(Qt::black);
+    penn.setWidth(20);
+    painter->setPen(penn);
+    painter->setBrush(Qt::NoBrush);
+    painter->drawEllipse(QPoint(towerx,towery),500,500);
 
+}
 
 
 

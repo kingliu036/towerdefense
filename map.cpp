@@ -25,10 +25,12 @@ void Map::loadImages()
     map.load(":/timg[7].png");
     towerchoose.load(":/choosetower.png");
     start.load(":/start.png");
+    cast.load(":/castle.png");
 }
 
 void Map::initGame()
 {
+    castleblood=3;
     loc[0].set(750,950);
     loc[1].set(1070,950);
     loc[2].set(1500,1400);
@@ -40,7 +42,8 @@ void Map::initGame()
     timerId4=startTimer(2500);
     for(int i=0;i<50;i++)
     {
-        e1[i].setX(i);
+        e1[i].setX1(i);
+        e2[i].setX2(i);
     }
 
 }
@@ -124,23 +127,31 @@ void Map::doDrawing()
                 qp.setBrush(brush1);
                 qp.drawRect(e1[i].getX()+20,e1[i].getY()-50,120*e1[i].blood/e1[i].blood0,30);
             }
+            if(e2[i].alive==true)
+            {
+                QRectF r2(e2[i].getX(),e2[i].getY(),210,210);
+                qp.drawImage(r2,e2[0].enemy22);
+                qp.drawRect(e2[i].getX()+20,e2[i].getY()-20,120,30);
+                QBrush brush2;                                                  //利用blood与blood0画出血条
+                brush2.setColor(Qt::green);
+                brush2.setStyle(Qt::SolidPattern);
+                qp.setBrush(brush2);
+                qp.drawRect(e2[i].getX()+20,e2[i].getY()-20,120*e2[i].blood/e2[i].blood0,30);
+            }
+
+
 
         }
+
         for(int i=0;i<20;i++)
         {
             if(hastower[i]==true&&t1[i].attack==true)                       //通过translate，rotate和角度画出一塔子弹
             {
-                if(t1[i].checkenemy(e1)==true||t2[i].checkenemy(e1)==true)
+                if(t1[i].checkenemy(e1,e2)==true)
                 {
-                    if(towertype[i]==1)
-                    {
-                        qp.translate(loc[i].getX()+150,loc[i].getY()+150);
-                        qp.rotate(atan(t1[i].getdirection(e1))*180/M_PI+180);
-                        qp.translate(-loc[i].getX()-150,-loc[i].getY()-150);
-                        QRectF q1(loc[i].getX()+150,loc[i].getY()+150,800,300);
-                        qp.drawImage(q1,t1[0].bt[0].bulletImg);
 
-                    }
+                        t1[i].draw(&qp,e1);
+
 
                 }
             }
@@ -159,8 +170,11 @@ void Map::doDrawing()
         qp.setFont(font1);
         qp.setPen(Qt::black);
         QString ab=QString::number(p1.money);
+        QString cd=QString::number(wave);
         qp.drawText(80,50,"MONEY:");
         qp.drawText(200,50,ab);
+        qp.drawText(400,50,"WAVE:");
+        qp.drawText(500,50,cd);
 
         t2[0].draw(&qp);
         t2[1].draw(&qp);
@@ -168,8 +182,23 @@ void Map::doDrawing()
         t2[3].draw(&qp);
         t2[4].draw(&qp);
 
+        QRectF cas(2500,400,600,600);
+        qp.drawImage(cas,cast);
 
 
+    }
+    else                                                            //游戏结束，显示gameover以及撑过的波数；
+    {
+        QFont font2("宋体",60,QFont::Bold,true);
+        qp.setFont(font2);
+        qp.setPen(Qt::black);
+        qp.drawText(1100,900,"GAME OVER!");
+        QFont font3("宋体",20,QFont::Bold,true);
+        qp.setFont(font3);
+        qp.setPen(Qt::red);
+        qp.drawText(1000,1200,"恭喜你成功抵挡了攻击波数：");
+        QString ef=QString::number(wave);
+        qp.drawText(1800,1200,ef);
     }
 
 }
@@ -296,10 +325,16 @@ void Map::timerEvent(QTimerEvent *e)
     int id = e->timerId();
     if(id==timerId)
     {
+        if(castleblood==0)
+        {
+            inGame=false;
+        }
         for(int i=0;i<50;i++)
         {
             e1[i].move(startgame);              //隔较短时间更新敌人移动数据
+            e2[i].move(startgame);
         }
+        hurt();
     }
 
     else if(id==timerId3)                   //一塔子弹显示暂留控制
@@ -316,7 +351,7 @@ void Map::timerEvent(QTimerEvent *e)
             if(hastower[i]==true&&towertype[i]==1)
             {
                 t1[i].attack=true;
-                p1.money+=t1[i].att(e1);
+                p1.money+=t1[i].att(e1,e2);
             }
         }
     }
@@ -326,16 +361,34 @@ void Map::timerEvent(QTimerEvent *e)
         {
             if(hastower[i]==true&&towertype[i]==2)
             {
-                p1.money+=t2[i].att(e1);
+                p1.money+=t2[i].att(e1,e2);
             }
         }
     }
     repaint();
 }
 
+void Map::hurt()
+{
+    for(int i=0;i<50;i++)
+    {
+        if(e1[i].alive==true&&e1[i].getX()>=2300&&e1[i].getY()<780)
+        {
+            castleblood-=1;
+            e1[i].alive=false;
+        }
+        if(e2[i].alive==true&&e2[i].getX()>=2300&&e2[i].getY()<780)
+        {
+            castleblood-=1;
+            e2[i].alive=false;
+        }
+    }
+}
 
+void Map::setWave()
+{
 
-
+}
 
 
 

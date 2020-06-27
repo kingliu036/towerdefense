@@ -12,7 +12,9 @@ public:
     int turnx[8];                               //地图中转折点的x,y坐标；
     int turny[8];
     void move(bool start);
-    void setX(int a){x=-1000*a;}
+    void setX1(int a){x=-1000*a;}
+    void setX2(int a){x=-1000*a-500;}
+
     int underattack(int a);
     int getX(){return x;}
     int getY(){return y;}
@@ -43,6 +45,19 @@ private:
     void initenemy();
 
 };
+
+class enemy2:public enemy
+{
+public:
+    enemy2();
+    int blood0;
+    QImage enemy22;
+private:
+    void loadimages();
+    void initenemy();
+
+};
+
 
 
 #endif // ENEMY_H

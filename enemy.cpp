@@ -11,6 +11,11 @@ enemy1::enemy1():enemy()
     initenemy();
     loadimages();
 }
+enemy2::enemy2():enemy()
+{
+    initenemy();
+    loadimages();
+}
 void enemy::move(bool start)                                //控制敌人移动
 {
     if(start==true)                                     //start按钮开始后，敌人方可移动
@@ -19,7 +24,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(x<turnx[period])
             {
-                x+=1;
+                x+=2;
             }
             else if(x>=turnx[period]&&period!=2)
             {
@@ -38,7 +43,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(y>=turny[period])
             {
-                y-=1;
+                y-=2;
             }
             else if(y<turny[period])
             {
@@ -51,7 +56,7 @@ void enemy::move(bool start)                                //控制敌人移动
         {
             if(y<turny[period])
             {
-                y+=1;
+                y+=2;
             }
             else if(y>=turny[period])
             {
@@ -115,3 +120,34 @@ void enemy1::initenemy()
     turnx[6]=3000;
     turny[6]=750;
 }
+void enemy2::loadimages()
+{
+    enemy22.load(":/monster.png");
+}
+void enemy2::initenemy()
+{
+    x=0;
+    y=1080;
+    blood0=blood=500;
+    rightDirection=true;            //初始方向向右；
+    turnx[0]=490;                   //初始化地图中拐点坐标；
+    turny[0]=1100;
+    turnx[1]=550;
+    turny[1]=660;
+    turnx[2]=1500;
+    turny[2]=700;
+    turnx[3]=1500;
+    turny[3]=1100;
+    turnx[4]=2350;
+    turny[4]=1100;
+    turnx[5]=2350;
+    turny[5]=750;
+    turnx[6]=3000;
+    turny[6]=750;
+
+}
+
+
+
+
+

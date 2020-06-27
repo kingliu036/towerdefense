@@ -42,12 +42,12 @@ public:
 
     QImage deletetower;
     QImage up;
-    bool checkenemy(enemy1 ee[50]);                     //检查攻击范围内是否有敌人
+    bool checkenemy(enemy1 ee[50],enemy2 ee2[50]);                     //检查攻击范围内是否有敌人
     double getdirection(enemy1 ee[50]);                  //获得敌人的位置
     bool attack=false;
     bool beginattack=false;
     int nowenemy=-1;
-    int att(enemy1 ee[50]);
+    int att(enemy1 ee[50],enemy2 ee2[50]);
 protected:
     int towerx;
     int towery;
@@ -65,6 +65,7 @@ public:
     void drawtower(QPainter painter);
     void t1up();
     Bullet bt[10];
+    void draw(QPainter * painter,enemy1 e1[50]);
 
 protected:
 
@@ -92,7 +93,7 @@ public:
     Bullet2 bt2;
     int sendX(enemy1 ee[50]);
     int sendY(enemy1 ee[50]);
-    int att(enemy1 ee[50]);
+    int att(enemy1 ee[50],enemy2 ee2[50]);
     void draw(QPainter * painter);
     void addbullet();
 protected:

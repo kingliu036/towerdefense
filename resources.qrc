@@ -17,5 +17,7 @@
         <file>button.png</file>
         <file>load.jpg</file>
         <file>hdl.mp3</file>
+        <file>monster.png</file>
+        <file>castle.png</file>
     </qresource>
 </RCC>
