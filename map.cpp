@@ -7,6 +7,7 @@
 #include"enemy.h"
 #include"playerstatus.h"
 
+
 Map::Map(QWidget * parent):QWidget(parent)
 {
     inGame=true;
@@ -41,6 +42,7 @@ void Map::initGame()
     {
         e1[i].setX(i);
     }
+
 }
 
 void Map::paintEvent(QPaintEvent *e)
@@ -200,7 +202,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         }
 
     }
-    if(clicktower==true&&mx>loc[towernum].getX()-150&&mx<loc[towernum].getX()+150
+    if(clicktower==true&&mx>loc[towernum].getX()-150&&mx<loc[towernum].getX()+150                       //建造一塔；
             &&my>loc[towernum].getY()-300&&my<loc[towernum].getY()&&hastower[towernum]==false)
     {
         if(p1.money>=300)
@@ -215,7 +217,7 @@ void Map::mousePressEvent(QMouseEvent *event)
 
     }
     else if(clicktower==true&&mx>loc[towernum].getX()+150&&mx<loc[towernum].getX()+450
-             &&my>loc[towernum].getY()-300&&my<loc[towernum].getY()&&hastower[towernum]==false)
+             &&my>loc[towernum].getY()-300&&my<loc[towernum].getY()&&hastower[towernum]==false)          //建造二塔；
     {
         if(p1.money>=250)
         {
@@ -227,7 +229,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         }
 
     }
-    else if(clicktower==false&&updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())
+    else if(clicktower==false&&updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())       //升级已有塔；
             &&(my<loc[towernum].getY())&&(my>loc[towernum].getY()-300)&&hastower[towernum]==true)
     {
         updown=false;
@@ -235,19 +237,21 @@ void Map::mousePressEvent(QMouseEvent *event)
         if(towertype[towernum]==1)
         {
             towerup[towernum]=true;
+            p1.money-=270;
         }
         else if(towertype[towernum]==2)
         {
             towerup[towernum]=true;
+            p1.money-=270;
         }
     }
-    else if(updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())
+    else if(updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())                  //拆塔；
             &&(my<loc[towernum].getY()+600)&&(my>loc[towernum].getY()+300))
     {
         updown=false;
         hastower[towernum]=false;
         max[towernum]=false;
-
+        p1.money+=125;
 
     }
     /*else if(towerup[towernum]==true&&mx>loc[towernum].getX()&&mx<loc[towernum].getX()+300
@@ -264,6 +268,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         hastower[towernum]=false;
         max[towernum]=false;
         towerup[towernum]=false;
+        p1.money+=125;
     }
     QWidget::mousePressEvent(event);
 }
