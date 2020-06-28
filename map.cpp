@@ -74,12 +74,12 @@ void Map::doDrawing()
         {
             if(hastower[i]==true)
             {
-                   if(towertype[i]==1&&t1[i].wetherup==false)
+                   if(towertype[i]==1&&t1[i].wetherup==false)                       //画出一塔
                    {
                         QRectF r1(t1[i].towerx,t1[i].towery,300,300);
                         qp.drawImage(r1,t1[i].tower1body);
                    }
-                   else if(towertype[i]==2&&t2[i].wetherup==false)
+                   else if(towertype[i]==2&&t2[i].wetherup==false)                  //画出二塔
                    {
                        QRectF r2(t2[i].towerx,t2[i].towery,300,300);
                        qp.drawImage(r2,t2[i].tower2body);
@@ -88,7 +88,7 @@ void Map::doDrawing()
         }
         if(updown==true)
         {
-            if(max[towernum]==false)
+            if(max[towernum]==false)                                                    //画出升级、拆除选择界面
             {
                 QRectF upp(loc[towernum].getX(),loc[towernum].getY()-300,300,300);
                 qp.drawImage(upp,t1[towernum].up);
@@ -99,12 +99,12 @@ void Map::doDrawing()
         }
         for(int i=0;i<20;i++)
         {
-            if(towerup[i]==true&&towertype[i]==1&&hastower[i]==true)
+            if(towerup[i]==true&&towertype[i]==1&&hastower[i]==true)                    //画出一塔升级形态
             {
                 QRectF t1upp(loc[i].getX()+50,loc[i].getY()+50,200,200);
                 qp.drawImage(t1upp,t1[towernum].tower1up);
             }
-            else if(towerup[i]==true&&towertype[i]==2&&hastower[i]==true)
+            else if(towerup[i]==true&&towertype[i]==2&&hastower[i]==true)               //画出二塔升级形态
             {
                 QRectF t2upp(loc[i].getX()+50,loc[i].getY()+50,200,200);
                 qp.drawImage(t2upp,t2[towernum].tower2up);
@@ -116,6 +116,7 @@ void Map::doDrawing()
             {
                 QRectF r1(e1[i].getX(),e1[i].getY(),190,190);
                 qp.drawImage(r1,e1[i].enemywalk);
+                qp.setBrush(Qt::NoBrush);
                 qp.drawRect(e1[i].getX()+20,e1[i].getY()-50,120,30);
                 QBrush brush1;                                                  //利用blood与blood0画出血条
                 brush1.setColor(Qt::green);
@@ -127,6 +128,7 @@ void Map::doDrawing()
             {
                 QRectF r2(e2[i].getX(),e2[i].getY(),210,210);
                 qp.drawImage(r2,e2[0].enemy22);
+                qp.setBrush(Qt::NoBrush);
                 qp.drawRect(e2[i].getX()+20,e2[i].getY()-20,120,30);
                 QBrush brush2;                                                  //利用blood与blood0画出血条
                 brush2.setColor(Qt::green);
@@ -150,7 +152,7 @@ void Map::doDrawing()
                 if(t1[i].checkenemy(e1,e2)==true)
                 {
 
-                        t1[i].draw(&qp,e1);
+                        t1[i].draw(&qp);
 
 
                 }
@@ -175,6 +177,12 @@ void Map::doDrawing()
         qp.drawText(200,50,ab);
         qp.drawText(400,50,"WAVE:");
         qp.drawText(500,50,cd);
+        QString gh=QString::number(castleblood);                //画出城堡血量
+        qp.drawText(2400,750,gh);
+        qp.setBrush(Qt::NoBrush);
+        qp.drawRect(2420,780,150,50);
+        qp.setBrush(Qt::green);
+        qp.drawRect(2420,780,50*castleblood,50);
 
         t2[0].draw(&qp);
         t2[1].draw(&qp);
@@ -209,7 +217,7 @@ void Map::mousePressEvent(QMouseEvent *event)
     int mx = event->x();                            //获取鼠标点击的位置
     int my = event->y();
 
-    for(int i=0;i<20;i++)                               //通过鼠标点击改变各种bool变量
+    for(int i=0;i<20;i++)                               //通过鼠标点击改变各种bool变量主要用于操纵建造、拆除、升级塔
     {
 
         if((mx>loc[i].getX())&&(mx<loc[i].getX()+300)&&(my>loc[i].getY())&&(my<loc[i].getY()+300))
@@ -259,7 +267,7 @@ void Map::mousePressEvent(QMouseEvent *event)
 
     }
     else if(clicktower==false&&updown==true&&(mx<loc[towernum].getX()+300)&&(mx>loc[towernum].getX())       //升级已有塔；
-            &&(my<loc[towernum].getY())&&(my>loc[towernum].getY()-300)&&hastower[towernum]==true)
+            &&(my<loc[towernum].getY())&&(my>loc[towernum].getY()-300)&&hastower[towernum]==true&&p1.money>=270)
     {
         updown=false;
         max[towernum]=true;
@@ -301,6 +309,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         towerup[towernum]=false;
         p1.money+=125;
     }
+
     QWidget::mousePressEvent(event);
 }
 
@@ -428,8 +437,6 @@ void Map::setWave()                                     //生成敌人
             wave++;
         }
     }
-
-
 }
 
 

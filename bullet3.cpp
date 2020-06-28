@@ -17,7 +17,7 @@ void bullet3::draw(QPainter *painter)                           //画出子弹
 void bullet3::move()
 {
     QPropertyAnimation * animation =new QPropertyAnimation(this,"currentPos");          //使得currentpos由startpos运动到targetpos
-    animation->setDuration(300);
+    animation->setDuration(200);
     animation->setStartValue(startPos);
     animation->setEndValue(targetPos);
     animation->start();

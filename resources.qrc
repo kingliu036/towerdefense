@@ -20,5 +20,6 @@
         <file>monster.png</file>
         <file>castle.png</file>
         <file>enemy3.png</file>
+        <file>enemy11.png</file>
     </qresource>
 </RCC>

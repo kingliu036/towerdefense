@@ -239,7 +239,7 @@ void Tower2::draw(QPainter *painter)
 
 }
 
-void Tower1::draw(QPainter * painter,enemy1 e1[500])                //画出一塔的辐射攻击效果
+void Tower1::draw(QPainter * painter)                //画出一塔的辐射攻击效果
 {
     QPen penn;
     penn.setColor(Qt::black);

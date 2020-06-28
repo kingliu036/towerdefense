@@ -67,7 +67,7 @@ public:
     void drawtower(QPainter painter);
     void t1up();
     Bullet bt[10];
-    void draw(QPainter * painter,enemy1 e1[50]);
+    void draw(QPainter * painter);
     void upgrade();
     int power;
 protected:
